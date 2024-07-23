@@ -9,8 +9,49 @@
 {% endblock %}
 
 {%block body%}
-<article>
-    <p class="date">Posted on {{ post.publish_date }} by {{ post.author }}</p>
-    <p class="content">{{ post.body|linebreaks }}</p>
-</article>
+    <article>
+        <p class="date">Posted on {{ post.publish_date }} by {{ post.author }}</p>
+        <p class="content">{{ post.body|linebreaks }}</p>
+    </article>
+    <br>
+    <br>
+    <div class="comments-container">
+    {% if comments %}
+        <h1 style="font-size: 20px">{{ comments.count }} comment{{ comments.count|pluralize }}</h1>
+        {% for comment in comments %}
+            <div class="comment">
+                <p>Comment {{ forloop.counter }}</p>
+                <div class="comment-author">{{ comment.author }}</div>
+                <p>Created on {{ comment.create_date }}</p>
+                <div class="comment-text">
+                    {{ comment.body }}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h1>There are no comments yet.</h1>
+    {% endif %}
+
+    </div>
+    <br>
+    <br>
+    <div>
+    {% if new_comment %}
+        <h2>Your comment has been added</h2>
+        <br>
+        <br>
+    {% else %}
+        <h2>Add comment</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button>Submit</button>
+            <br>
+            <br>
+            <br>
+            <br>
+
+            </form>
+    {% endif %}
+    </div>
 {%endblock%}
