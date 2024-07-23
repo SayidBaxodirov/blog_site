@@ -1,0 +1,24 @@
+{%extends 'blog/base.html'%}
+
+{% block title %}
+    All posts
+{% endblock %}
+
+{% block name %}
+    All posts
+{% endblock %}
+
+{%block body%}
+<section class="posts">
+    {% for post in posts %}
+        <article class="post">
+            <h2>{{ post.title}}</h2>
+            <p class="date">Posted on {{ post.publish_date }}</p>
+            <p class="content">{{ post.body|truncatewords:20 }}</p>
+            <a href="{{ post.get_absolute_url }}">Read more</a>
+        </article>
+    {% endfor %}
+    <!-- Add more posts as needed -->
+</section>
+    {% include 'blog/paginator.html' with page=page_obj %}  
+{%endblock%}
