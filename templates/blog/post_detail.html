@@ -12,6 +12,7 @@
     <article>
         <p class="date">Posted on {{ post.publish_date }} by {{ post.author }}</p>
         <p class="content">{{ post.body|linebreaks }}</p>
+        <a href="{% url 'blog:post_share' post.id %}">Share this post</a>
     </article>
     <br>
     <br>
